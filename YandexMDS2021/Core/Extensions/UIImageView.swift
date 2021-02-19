@@ -17,12 +17,11 @@ extension UIImageView {
                 let data = data, error == nil,
                 let image = UIImage(data: data)
             else { return }
-            DispatchQueue.main.async() {
-                self.image = image
+            DispatchQueue.main.async() { [weak self] in
+                self?.image = image
             }
         }.resume()
     }
-    
     func downloaded(from link: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
         guard let url = URL(string: link) else { return }
         downloaded(from: url, contentMode: mode)

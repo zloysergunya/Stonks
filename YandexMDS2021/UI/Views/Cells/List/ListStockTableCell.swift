@@ -21,7 +21,10 @@ class ListStockTableCell: UITableViewCell {
         lastPriceLabel.text = "$\(stock.lastPrice)"
         difPriceLabel.text = "$\(stock.volume)"
         
-        if let url = URL(string: "https://finnhub.io/api/logo?symbol=\(stock.symbol)") {
+        stockImageView.layer.masksToBounds = true
+        stockImageView.layer.cornerRadius = 12
+        
+        if let url = URL(string: "https://s3.polygon.io/logos/\(stock.symbol.lowercased())/logo.png"), stockImageView.image == nil {
             stockImageView.downloaded(from: url)
         }
     }

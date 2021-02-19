@@ -29,7 +29,6 @@ class ListViewController: UIViewController {
         WSManager.shared.send(message: "{\"type\":\"subscribe\",\"symbol\":\"AAPL\"}")
         WSManager.shared.send(message: "{\"type\":\"subscribe\",\"symbol\":\"GOOGL\"}")
         WSManager.shared.send(message: "{\"type\":\"subscribe\",\"symbol\":\"AMZN\"}")
-        WSManager.shared.send(message: "{\"type\":\"subscribe\",\"symbol\":\"YNDX\"}")
         WSManager.shared.send(message: "{\"type\":\"subscribe\",\"symbol\":\"BAC\"}")
         WSManager.shared.send(message: "{\"type\":\"subscribe\",\"symbol\":\"MSFT\"}")
         WSManager.shared.send(message: "{\"type\":\"subscribe\",\"symbol\":\"TSLA\"}")
