@@ -12,6 +12,7 @@ protocol WSManagerDelegate: class {
 }
 
 class WSManager {
+    
     public static let shared = WSManager()
     private init(){}
         
@@ -24,11 +25,18 @@ class WSManager {
     func connect() {
         webSocketTask.resume()
         setupTimeInterval()
+        subscribe()
     }
     
     func disconnect() {
         webSocketTask.cancel(with: .normalClosure, reason: nil)
         timer?.invalidate()
+    }
+    
+    private func subscribe() {
+        ["AAPL", "GOOGL", "AMZN", "BAC", "MSFT", "TSLA", "MA"].forEach {
+            send(message: "{\"type\":\"subscribe\",\"symbol\":\"\($0)\"}")
+        }
     }
     
     private func setupTimeInterval() {

@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("======= Директория приложения =======\n\(NSHomeDirectory())\n=======\n")
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = ListViewController(nibName: "ListViewController", bundle: nil)
+        window?.rootViewController = UINavigationController(rootViewController: ListViewController(nibName: "ListViewController", bundle: nil))
         window?.makeKeyAndVisible()
         return true
     }
