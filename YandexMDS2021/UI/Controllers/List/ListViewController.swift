@@ -45,8 +45,10 @@ class ListViewController: UIViewController {
     }
     
     func addSearchbar() {
-        let searchController = UISearchController(searchResultsController: SearchViewController(nibName: "SearchViewController", bundle: nil))
+        let searchResultsController = SearchViewController(nibName: "SearchViewController", bundle: nil)
+        let searchController = UISearchController(searchResultsController: searchResultsController)
         searchController.delegate = self
+        searchController.searchResultsUpdater = searchResultsController
         let searchBar = searchController.searchBar
         searchBar.tintColor = .textColor
         searchBar.barTintColor = .textColor

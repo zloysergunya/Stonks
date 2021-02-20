@@ -20,6 +20,19 @@ class SearchViewController: UIViewController {
     private func setupUI() {
         setupTableView(searchTableView)
     }
+    
+    private func search(with text: String) {
+        print(text)
+        filteredStocks = TradeDataProvider.shared.search(with: text)
+        searchTableView.reloadData()
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchText = searchController.searchBar.text else { return }
+        search(with: searchText)
+    }
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {

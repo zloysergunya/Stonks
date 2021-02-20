@@ -27,4 +27,8 @@ class TradeDataProvider {
     func getTradeStock() -> [TradeStock] {
         return Array(realm.objects(TradeStock.self))
     }
+    
+    func search(with text: String) -> [TradeStock] {
+        return Array(realm.objects(TradeStock.self).filter("symbol CONTAINS[cd] %@", text))
+    }
 }
