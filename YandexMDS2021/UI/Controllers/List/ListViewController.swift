@@ -11,6 +11,7 @@ class ListViewController: UIViewController {
     @IBOutlet weak var listTableView: UITableView!
     
     private var tradeStocks: [TradeStock]!
+    private var tickers: [Ticker]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,9 @@ class ListViewController: UIViewController {
         addSearchbar()
         setupTableView(listTableView)
         setupWebSocket()
+        TradeDataProvider.shared.getSymbols() { [weak self] in
+            self?.updateUI()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,8 +38,9 @@ class ListViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
-    private func updateUI() {
-        tradeStocks = TradeDataProvider.shared.getTradeStock()
+    func updateUI() {
+        tickers = TradeDataProvider.shared.getSymbols()
+//        tradeStocks = TradeDataProvider.shared.getTradeStock()
         listTableView.reloadData()
     }
     
@@ -79,7 +84,7 @@ class ListViewController: UIViewController {
 extension ListViewController: WSManagerDelegate {
     func didReceive(_ manager: WSManager, receivedData data: Data?) {
         TradeDataProvider.shared.saveTradeStock(data)
-        updateUI()
+//        updateUI()
     }
 }
 
@@ -101,12 +106,12 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tradeStocks?.count ?? 0
+        return tickers?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListStockTableCell.reuseIdentifier, for: indexPath) as! ListStockTableCell
-        cell.setupCell(for: tradeStocks[indexPath.row])
+        cell.setupCell(for: tickers[indexPath.row])
         return cell
     }
 }

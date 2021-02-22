@@ -15,6 +15,8 @@ class TradeStock: Object, Decodable {
     @objc dynamic var symbol = String()
     @objc dynamic var lastPrice = Double()
     @objc dynamic var volume = Double()
+    var imageView: UIImageView?
+    var isFavourite: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case symbol = "symbol"

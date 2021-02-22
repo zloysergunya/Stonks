@@ -14,11 +14,12 @@ class ListHeaderTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        filterControll.selectedSegmentIndex = TradeDataProvider.shared.showStocks ? 0 : 1
+        filterControll.selectedSegmentIndex = TradeDataProvider.shared.showFavourites ? 1 : 0
         filterControll.customize()
     }
     
     @IBAction func selectFilter(_ sender: UISegmentedControl) {
-        TradeDataProvider.shared.showStocks = sender.selectedSegmentIndex == 0
+        TradeDataProvider.shared.showFavourites = sender.selectedSegmentIndex == 1
+        (parentViewController as? ListViewController)?.updateUI()
     }
 }
