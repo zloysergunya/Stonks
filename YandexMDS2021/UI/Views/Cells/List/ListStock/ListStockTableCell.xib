@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -45,16 +45,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$131.93" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4uy-qm-Oq7">
-                                <rect key="frame" x="147" y="14" width="164" height="21"/>
+                                <rect key="frame" x="151" y="14" width="160" height="21"/>
                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="18"/>
                                 <color key="textColor" name="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Baa-N7-iyx">
-                                <rect key="frame" x="123" y="17" width="16" height="16"/>
+                                <rect key="frame" x="123" y="14" width="20" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="16" id="047-xR-ogO"/>
-                                    <constraint firstAttribute="height" constant="16" id="RKk-Gd-W2G"/>
+                                    <constraint firstAttribute="width" constant="20" id="047-xR-ogO"/>
+                                    <constraint firstAttribute="height" constant="20" id="RKk-Gd-W2G"/>
                                 </constraints>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="star.fill" catalog="system"/>
@@ -80,17 +80,17 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="grayColor"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
                             <constraint firstItem="VJC-kl-Pff" firstAttribute="top" secondItem="C8i-Dq-MPy" secondAttribute="bottom" constant="4" id="27R-3B-K8r"/>
                             <constraint firstItem="4uy-qm-Oq7" firstAttribute="leading" secondItem="Baa-N7-iyx" secondAttribute="trailing" constant="8" id="6z4-tc-dd6"/>
+                            <constraint firstItem="Baa-N7-iyx" firstAttribute="top" secondItem="I7U-qR-Ygy" secondAttribute="top" constant="14" id="80O-LE-ww5"/>
                             <constraint firstItem="Baa-N7-iyx" firstAttribute="leading" secondItem="C8i-Dq-MPy" secondAttribute="trailing" constant="6" id="AYP-C4-9DM"/>
                             <constraint firstAttribute="trailing" secondItem="VJC-kl-Pff" secondAttribute="trailing" constant="12" id="Lmj-al-1cb"/>
                             <constraint firstItem="s4j-Pd-XAA" firstAttribute="leading" secondItem="I7U-qR-Ygy" secondAttribute="leading" constant="8" id="NUX-Z1-cva"/>
                             <constraint firstItem="VJC-kl-Pff" firstAttribute="leading" secondItem="s4j-Pd-XAA" secondAttribute="trailing" constant="12" id="PP1-3q-dug"/>
                             <constraint firstAttribute="trailing" secondItem="4uy-qm-Oq7" secondAttribute="trailing" constant="17" id="Sfj-9o-E85"/>
                             <constraint firstItem="C8i-Dq-MPy" firstAttribute="top" secondItem="I7U-qR-Ygy" secondAttribute="top" constant="14" id="Xo0-kv-Gxs"/>
-                            <constraint firstItem="Baa-N7-iyx" firstAttribute="centerY" secondItem="C8i-Dq-MPy" secondAttribute="centerY" id="ceR-00-knr"/>
                             <constraint firstItem="s4j-Pd-XAA" firstAttribute="centerY" secondItem="I7U-qR-Ygy" secondAttribute="centerY" id="trh-FJ-UMt"/>
                             <constraint firstItem="C8i-Dq-MPy" firstAttribute="leading" secondItem="s4j-Pd-XAA" secondAttribute="trailing" constant="12" id="vMb-hW-1Ww"/>
                             <constraint firstItem="4uy-qm-Oq7" firstAttribute="top" secondItem="I7U-qR-Ygy" secondAttribute="top" constant="14" id="yyy-hs-yIH"/>
@@ -118,6 +118,7 @@
                 <outlet property="difPriceLabel" destination="BUL-6n-qkt" id="EpX-p3-egc"/>
                 <outlet property="favouriteButton" destination="Baa-N7-iyx" id="ORu-aR-eic"/>
                 <outlet property="lastPriceLabel" destination="4uy-qm-Oq7" id="SrC-lJ-dp3"/>
+                <outlet property="roundBackgroundView" destination="I7U-qR-Ygy" id="gSz-Nl-Kot"/>
                 <outlet property="stockImageView" destination="s4j-Pd-XAA" id="9z7-e4-X6i"/>
                 <outlet property="stockNameLabel" destination="C8i-Dq-MPy" id="ipn-d3-NKn"/>
             </connections>
@@ -127,8 +128,8 @@
     <resources>
         <image name="icloud.slash" catalog="system" width="128" height="101"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
-        <namedColor name="grayColor">
-            <color red="0.94099998474121094" green="0.9570000171661377" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        <namedColor name="backgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="greenColor">
             <color red="0.14499999582767487" green="0.70200002193450928" blue="0.36500000953674316" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

@@ -14,7 +14,8 @@ class TradeDataProvider {
     private init(){}
     
     func getSymbols(complition: @escaping () -> ()) {
-        let params = ["exchange":"ME"]
+        let params = ["exchange":"US",
+                      "mic":"XNGS"]
         HTTPManager(endPoint: "/stock/symbol", params: params) { [weak self] data, status in
             self?.saveSymbols(data)
             complition()
@@ -32,11 +33,15 @@ class TradeDataProvider {
     }
     
     func getSymbols() -> [Ticker] {
+        var array = realm.objects(Ticker.self).sorted(byKeyPath: "symbol", ascending: true)
         if showFavourites {
-            return Array(realm.objects(Ticker.self).filter("isFavourite == %@", showFavourites))
-        } else {
-           return Array(realm.objects(Ticker.self))
+            array = array.filter("isFavourite == %@", showFavourites)
         }
+        return Array(array)
+    }
+    
+    func getSymbolsList() -> [String] {
+        return realm.objects(Ticker.self).sorted(byKeyPath: "symbol", ascending: true).compactMap({ $0.symbol })
     }
     
     func addToFavourite(ticker: Ticker) {
@@ -61,6 +66,8 @@ class TradeDataProvider {
     }
     
     func search(with text: String) -> [Ticker] {
-        return Array(realm.objects(Ticker.self).filter("symbol CONTAINS[cd] %@ OR tickerDescription CONTAINS[cd] %@", text, text))
+        return Array(realm.objects(Ticker.self)
+                        .filter("symbol CONTAINS[cd] %@ OR tickerDescription CONTAINS[cd] %@", text, text)
+                        .sorted(byKeyPath: "symbol", ascending: true))
     }
 }

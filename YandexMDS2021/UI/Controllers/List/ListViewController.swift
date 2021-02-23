@@ -21,9 +21,9 @@ class ListViewController: UIViewController {
     private func setupUI() {
         addSearchbar()
         setupTableView(listTableView)
-        setupWebSocket()
         TradeDataProvider.shared.getSymbols() { [weak self] in
             self?.updateUI()
+            self?.setupWebSocket()
         }
     }
     
@@ -64,7 +64,7 @@ class ListViewController: UIViewController {
             textField.attributedPlaceholder = NSAttributedString(string: "Find company or ticker",
                                                                  attributes: [.foregroundColor: UIColor.textColor])
             if let backgroundView = textField.subviews.first {
-//                backgroundView.backgroundColor = .white
+                backgroundView.backgroundColor = .backgroundColor
                 backgroundView.layer.borderWidth = 1
                 backgroundView.layer.borderColor = UIColor.textColor.cgColor
                 backgroundView.layer.cornerRadius = min(textField.bounds.width, textField.bounds.height) / 2
@@ -72,7 +72,10 @@ class ListViewController: UIViewController {
             }
         }
         
-        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.barTintColor = .backgroundColor
+        navigationController?.navigationBar.tintColor = .textColor
         navigationItem.searchController = searchController
     }
     
@@ -113,6 +116,12 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ListStockTableCell.reuseIdentifier, for: indexPath) as! ListStockTableCell
         cell.setupCell(for: tickers[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = PageViewController(options: PagerOption())
+        vc.ticker = tickers[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

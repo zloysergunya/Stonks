@@ -4,19 +4,23 @@ PODS:
   - Realm/Headers (10.1.4)
   - RealmSwift (10.1.4):
     - Realm (= 10.1.4)
+  - Swift_PageMenu (1.4.2)
 
 DEPENDENCIES:
   - RealmSwift
+  - Swift_PageMenu (~> 1.4)
 
 SPEC REPOS:
   trunk:
     - Realm
     - RealmSwift
+    - Swift_PageMenu
 
 SPEC CHECKSUMS:
   Realm: 80f4fb2971ccb9adc27a47d0955ae8e533a7030b
   RealmSwift: 0e566ca714edb377bba8ea0811eafcea0b93734e
+  Swift_PageMenu: 6cc3e92540729606bd66c9b35a0886ed6c8ed899
 
-PODFILE CHECKSUM: 12366eb473fa1f9b6b8e2a30c706c7d37fbde591
+PODFILE CHECKSUM: 71546b84e6811feabcb92deaea6e73a2dc51cab0
 
 COCOAPODS: 1.10.0

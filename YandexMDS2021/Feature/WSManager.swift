@@ -35,7 +35,7 @@ class WSManager {
     }
     
     private func subscribe() {
-        ["AAPL", "GOOGL", "AMZN", "BAC", "MSFT", "TSLA", "MA", "BINANCE:BTCUSDT", "BINANCE:ETHUSDT", "IC MARKETS:1"].forEach {
+        TradeDataProvider.shared.getSymbolsList().prefix(50).forEach {
             send(message: "{\"type\":\"subscribe\",\"symbol\":\"\($0)\"}")
         }
     }
@@ -75,7 +75,7 @@ class WSManager {
             case .success(let message):
                 switch message {
                 case .string(let text):
-//                    print(text)
+                    print(text)
                     self.receivedData = text.data(using: .utf8)
                 case .data(let data):
                     self.receivedData = data

@@ -14,6 +14,7 @@ class ListStockTableCell: UITableViewCell {
     @IBOutlet weak var difPriceLabel: UILabel!
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var favouriteButton: UIButton!
+    @IBOutlet weak var roundBackgroundView: RoundView!
     
     static let reuseIdentifier = "ListStockTableCell"
     private var ticker: Ticker!
@@ -22,17 +23,24 @@ class ListStockTableCell: UITableViewCell {
         self.ticker = ticker
         stockNameLabel.text = ticker.displaySymbol
         companyNameLabel.text = ticker.tickerDescription
-        favouriteButton.tintColor = ticker.isFavourite ? .orange : .lightGray
         
         stockImageView.layer.masksToBounds = true
         stockImageView.layer.cornerRadius = 12
-        DispatchQueue.main.async {
-            self.stockImageView?.downloaded(from: "https://finnhub.io/api/logo?symbol=\(ticker.symbol)")
-        }
+        self.stockImageView?.downloaded(from: "https://finnhub.io/api/logo?symbol=\(ticker.symbol)")
+        
+        setupColors()
     }
     
     @IBAction func addToFavourite(_ sender: UIButton) {
         TradeDataProvider.shared.addToFavourite(ticker: ticker)
-        favouriteButton.tintColor = ticker.isFavourite ? .orange : .lightGray
+        setupColors()
+    }
+    
+    private func setupColors() {
+        favouriteButton.tintColor = ticker.isFavourite ? .yellow : .lightGray
+        roundBackgroundView.backgroundColor = ticker.isFavourite ? .secondBackgroundColor : .backgroundColor
+        stockNameLabel.textColor = ticker.isFavourite ? .secondTextColor : .textColor
+        companyNameLabel.textColor = ticker.isFavourite ? .secondTextColor : .textColor
+        lastPriceLabel.textColor = ticker.isFavourite ? .secondTextColor : .textColor
     }
 }

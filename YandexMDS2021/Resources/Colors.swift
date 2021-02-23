@@ -15,4 +15,16 @@ extension UIColor {
     class var textColor: UIColor {
         return UIColor(named: "textColor")!
     }
+    
+    class var backgroundColor: UIColor {
+        return UIColor(named: "backgroundColor")!
+    }
+    
+    class var secondTextColor: UIColor {
+        return UIColor(named: "secondTextColor")!
+    }
+    
+    class var secondBackgroundColor: UIColor {
+        return UIColor(named: "secondBackgroundColor")!
+    }
 }
