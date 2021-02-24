@@ -48,6 +48,9 @@
                         <segment title="1Y"/>
                         <segment title="All"/>
                     </segments>
+                    <connections>
+                        <action selector="changePeriod:" destination="-1" eventType="valueChanged" id="Llz-62-5ow"/>
+                    </connections>
                 </segmentedControl>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Hp-vz-adh" customClass="RoundButton" customModule="YandexMDS2021" customModuleProvider="target">
                     <rect key="frame" x="18" y="734" width="354" height="56"/>

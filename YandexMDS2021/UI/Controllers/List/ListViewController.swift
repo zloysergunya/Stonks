@@ -13,9 +13,16 @@ class ListViewController: UIViewController {
     private var tradeStocks: [TradeStock]!
     private var tickers: [Ticker]!
     
+    private var titleStatus = "Trading is closed" {
+        didSet {
+            title = titleStatus
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        titleStatus = "Trading is closed"
     }
     
     private func setupUI() {
@@ -87,7 +94,18 @@ class ListViewController: UIViewController {
 extension ListViewController: WSManagerDelegate {
     func didReceive(_ manager: WSManager, receivedData data: Data?) {
         TradeDataProvider.shared.saveTradeStock(data)
+        checkAvailabilityTrades(data: data)
 //        updateUI()
+    }
+    
+    private func checkAvailabilityTrades(data: Data?) {
+        if let status = (data?.json as? [String:Any])?["type"] as? String {
+            if status == "ping" {
+                titleStatus = "Trading is closed"
+            } else {
+                titleStatus = ""
+            } 
+        }
     }
 }
 

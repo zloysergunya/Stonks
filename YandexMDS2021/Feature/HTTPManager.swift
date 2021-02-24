@@ -48,7 +48,8 @@ func HTTPManager(_ url: String = "https://finnhub.io/api/v1",
             body.appendString("--".appending(boundary.appending("--")))
         }
     }
-
+    
+    print("REQUEST: \(url + endPoint + urn)&token=c0plj0748v6rvej4ou50")
     if let uri = URL(string: (url + endPoint + urn).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!) {
         let session = URLSession.shared
         var request = URLRequest(url: uri)

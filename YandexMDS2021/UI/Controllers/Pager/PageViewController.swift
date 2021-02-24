@@ -58,7 +58,9 @@ class PageViewController: PageMenuController {
 
 extension PageViewController: PageMenuControllerDataSource {
     func viewControllers(forPageMenuController pageMenuController: PageMenuController) -> [UIViewController] {
-        return [ChartViewController(nibName: "ChartViewController", bundle: nil),
+        let chartVC = ChartViewController(nibName: "ChartViewController", bundle: nil)
+        chartVC.ticker = ticker
+        return [chartVC,
                 SummaryViewController(nibName: "SummaryViewController", bundle: nil),
                 NewsViewController(nibName: "NewsViewController", bundle: nil)]
     }

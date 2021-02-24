@@ -11,21 +11,34 @@ class ChartViewController: UIViewController {
     @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var periodControl: UISegmentedControl!
     
+    var ticker: Ticker!
+    private var periodName: String? {
+        periodControl.titleForSegment(at: periodControl.selectedSegmentIndex)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
     private func setupUI() {
-        setupChart()
         setupPeriodControl()
+        updateUI()
     }
     
-    private func setupChart() {
+    private func updateUI() {
+        TradeDataProvider.shared.getCandles(for: ticker.symbol, periodName: periodName) { [weak self] candles in
+            if let candles = candles {
+                self?.setupChart(candles)
+            }
+        }
+    }
+    
+    private func setupChart(_ candles: [Double]) {
         let chart = Chart(frame: CGRect(x: chartView.bounds.minX, y: chartView.bounds.minY,
                                         width: chartView.frame.width, height: chartView.frame.height))
         chart.delegate = self
-        let series = ChartSeries([0, 6.5, 2, 8, 4.1, 7, 3.1, 10, 8])
+        let series = ChartSeries(candles)
         series.area = true
         series.color = .textColor
         chart.add(series)
@@ -45,11 +58,21 @@ class ChartViewController: UIViewController {
         
     }
     
+    @IBAction func changePeriod(_ sender: UISegmentedControl) {
+        updateUI()
+    }
+    
     private var infoView = RoundView()
-    private func addInfoView(x: CGFloat, y: Double, value: Double) {
+    private func addInfoView(x: CGFloat, y: CGFloat, value: Double) {
         infoView.removeFromSuperview()
         infoView = RoundView()
         let view = infoView
+        var y = y
+        if y - 100 < chartView.frame.minY {
+            y = y + 120
+        } else {
+            y = y - 120
+        }
         view.frame = CGRect(x: CGFloat(x - 50), y: CGFloat(y), width: 100, height: 70)
         view.backgroundColor = .textColor
         view.cornerRadius = 16
@@ -76,16 +99,15 @@ class ChartViewController: UIViewController {
 }
 
 extension ChartViewController: ChartDelegate {
-    func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
+    func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat, y: CGFloat) {
         for (seriesIndex, dataIndex) in indexes.enumerated() {
             if let value = chart.valueForSeries(seriesIndex, atIndex: dataIndex) {
-                addInfoView(x: left, y: x, value: value)
+                addInfoView(x: left, y: y, value: value)
             }
         }
     }
     
     func didFinishTouchingChart(_ chart: Chart) {
-//        return
         infoView.removeFromSuperview()
     }
     
