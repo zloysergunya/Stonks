@@ -1,42 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChartViewController" customModule="YandexMDS2021" customModuleProvider="target">
             <connections>
+                <outlet property="chartView" destination="Xpx-no-843" id="1s8-lh-PWe"/>
+                <outlet property="periodControl" destination="LIW-dP-A6B" id="Mv6-0L-f3x"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zv4-dv-cw1">
-                    <rect key="frame" x="185.5" y="437.5" width="43" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xpx-no-843">
+                    <rect key="frame" x="0.0" y="238" width="390" height="360"/>
+                    <color key="backgroundColor" name="backgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="360" id="VdR-ip-trf"/>
+                    </constraints>
+                </view>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LIW-dP-A6B">
+                    <rect key="frame" x="18" y="638" width="354" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="BCV-yf-XM2"/>
+                    </constraints>
+                    <segments>
+                        <segment title="D"/>
+                        <segment title="W"/>
+                        <segment title="M"/>
+                        <segment title="6M"/>
+                        <segment title="1Y"/>
+                        <segment title="All"/>
+                    </segments>
+                </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Hp-vz-adh" customClass="RoundButton" customModule="YandexMDS2021" customModuleProvider="target">
+                    <rect key="frame" x="18" y="734" width="354" height="56"/>
+                    <color key="backgroundColor" name="textColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="YLP-ib-IZq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                    <state key="normal" title="Buy for $132.04">
+                        <color key="titleColor" name="secondTextColor"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="16"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="buyTicker:" destination="-1" eventType="touchUpInside" id="mge-ch-rtE"/>
+                    </connections>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Vb-VL-hOH">
+                    <rect key="frame" x="144.33333333333334" y="64" width="101.33333333333334" height="54.666666666666657"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$132.04" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCb-uv-nk6">
+                            <rect key="frame" x="0.0" y="0.0" width="101.33333333333333" height="32.666666666666664"/>
+                            <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="28"/>
+                            <color key="textColor" name="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+$0.12 (1,15%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yd1-Mt-es5">
+                            <rect key="frame" x="9.6666666666666572" y="40.666666666666671" width="82.333333333333329" height="14"/>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                            <color key="textColor" name="greenColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" name="backgroundColor"/>
             <constraints>
-                <constraint firstItem="Zv4-dv-cw1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="m6M-4r-qH7"/>
-                <constraint firstItem="Zv4-dv-cw1" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="wsd-uG-vS7"/>
+                <constraint firstItem="9Hp-vz-adh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="A2D-Xy-Hzm"/>
+                <constraint firstItem="LIW-dP-A6B" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="CC6-r2-s88"/>
+                <constraint firstItem="9Vb-VL-hOH" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DrW-d7-dJe"/>
+                <constraint firstItem="9Hp-vz-adh" firstAttribute="top" secondItem="LIW-dP-A6B" secondAttribute="bottom" constant="52" id="L3O-xj-M9N"/>
+                <constraint firstItem="LIW-dP-A6B" firstAttribute="top" secondItem="Xpx-no-843" secondAttribute="bottom" constant="40" id="WRc-rN-ZqT"/>
+                <constraint firstItem="Xpx-no-843" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="az2-oV-THT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Xpx-no-843" secondAttribute="trailing" id="g0x-cy-2bb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9Hp-vz-adh" secondAttribute="trailing" constant="18" id="j6c-aI-e4b"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="9Hp-vz-adh" secondAttribute="bottom" constant="20" id="lb0-t2-Rfb"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LIW-dP-A6B" secondAttribute="trailing" constant="18" id="pNP-pS-Ola"/>
+                <constraint firstItem="9Vb-VL-hOH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="vMm-K5-4aM"/>
             </constraints>
             <point key="canvasLocation" x="-6" y="61"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="backgroundColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="greenColor">
+            <color red="0.14499999582767487" green="0.70200002193450928" blue="0.36500000953674316" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="secondTextColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textColor">
+            <color red="0.10199999809265137" green="0.10199999809265137" blue="0.10199999809265137" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

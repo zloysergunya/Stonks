@@ -14,8 +14,18 @@ class ListHeaderTableCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupFilterControl()
+    }
+    
+    private func setupFilterControl() {
         filterControll.selectedSegmentIndex = TradeDataProvider.shared.showFavourites ? 1 : 0
-        filterControll.customize()
+        let font28 = UIFont(name: "Roboto-Bold", size: 28.0)!
+        let font18 = UIFont(name: "Roboto-Bold", size: 18.0)!
+        filterControll.setTitleTextAttributes([.foregroundColor: UIColor.textColor, .font: font28], for: .selected)
+        filterControll.setTitleTextAttributes([.foregroundColor: UIColor.grayColor, .font: font18], for: .normal)
+        filterControll.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
+        filterControll.setBackgroundImage(UIImage(), for: .selected, barMetrics: .default)
+        filterControll.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
     }
     
     @IBAction func selectFilter(_ sender: UISegmentedControl) {

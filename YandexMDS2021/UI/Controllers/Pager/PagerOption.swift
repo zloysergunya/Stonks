@@ -14,7 +14,7 @@ struct PagerOption: PageMenuOptions {
     
     var font: UIFont = UIFont(name: "Roboto-Regular", size: 14)!
     var menuItemMargin: CGFloat = 20
-    var menuTitleColor: UIColor = .secondTextColor
+    var menuTitleColor: UIColor = .grayColor
     var menuTitleSelectedColor: UIColor = .textColor
     var menuCursor: PageMenuCursor {
         .underline(barColor: .textColor, height: 2)

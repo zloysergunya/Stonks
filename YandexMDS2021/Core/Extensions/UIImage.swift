@@ -2,7 +2,7 @@
 //  UIImage.swift
 //  YandexMDS2021
 //
-//  Created by Sergey Kotov on 19.02.2021.
+//  Created by Sergey Kotov on 24.02.2021.
 //
 
 import UIKit
@@ -15,6 +15,7 @@ extension UIImage {
       UIRectFill(rect)
       let image = UIGraphicsGetImageFromCurrentImageContext()
       UIGraphicsEndImageContext()
+
       guard let cgImage = image?.cgImage else { return nil }
       self.init(cgImage: cgImage)
     }
