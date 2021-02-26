@@ -17,13 +17,27 @@ class ListStockTableCell: UITableViewCell {
     @IBOutlet weak var roundBackgroundView: RoundView!
     
     static let reuseIdentifier = "ListStockTableCell"
-    private var ticker: Ticker!
+    var ticker: Ticker!
     
     func setupCell(for ticker: Ticker) {
         self.ticker = ticker
         stockNameLabel.text = ticker.displaySymbol
         companyNameLabel.text = ticker.tickerDescription
+        lastPriceLabel.text = ticker.lastPrice != 0 ? "$\(ticker.lastPrice)" : nil
         
+        let difPercent = ((ticker.difPrice / ticker.lastPrice) * 100).rounded(toPlaces: 2)
+        if ticker.difPrice != 0 {
+            if ticker.difPrice > 0 {
+                difPriceLabel.text = "$\(ticker.difPrice) (\(difPercent)%)"
+                difPriceLabel.textColor = .greenColor
+            } else {
+                difPriceLabel.text = "-$\(abs(ticker.difPrice)) (\(difPercent)%)"
+                difPriceLabel.textColor = .redColor
+            }
+        } else {
+            difPriceLabel.text = nil
+        }
+                    
         stockImageView.layer.masksToBounds = true
         stockImageView.layer.cornerRadius = 12
         self.stockImageView?.downloaded(from: "https://finnhub.io/api/logo?symbol=\(ticker.symbol)")

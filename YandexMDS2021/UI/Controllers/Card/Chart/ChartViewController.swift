@@ -10,6 +10,8 @@ import UIKit
 class ChartViewController: UIViewController {
     @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var periodControl: UISegmentedControl!
+    @IBOutlet weak var lastPriceLabel: UILabel!
+    @IBOutlet weak var difPriceLabel: UILabel!
     
     var ticker: Ticker!
     private var periodName: String? {
@@ -27,10 +29,25 @@ class ChartViewController: UIViewController {
     }
     
     private func updateUI() {
+        TradeDataProvider.shared.getQuote(symbol: ticker.symbol) { [weak self] in
+            self?.setupPrices()
+        }
         TradeDataProvider.shared.getCandles(for: ticker.symbol, periodName: periodName) { [weak self] candles in
             if let candles = candles {
                 self?.setupChart(candles)
             }
+        }
+    }
+    
+    private func setupPrices() {
+        lastPriceLabel.text = "$\(ticker.lastPrice)"
+        let difPercent = ((ticker.difPrice / ticker.lastPrice) * 100).rounded(toPlaces: 2)
+        if ticker.difPrice > 0 {
+            difPriceLabel.text = "$\(ticker.difPrice) (\(difPercent)%)"
+            difPriceLabel.textColor = .greenColor
+        } else {
+            difPriceLabel.text = "-$\(abs(ticker.difPrice)) (\(difPercent)%)"
+            difPriceLabel.textColor = .redColor
         }
     }
     

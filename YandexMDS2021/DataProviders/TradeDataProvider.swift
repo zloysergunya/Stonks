@@ -13,9 +13,26 @@ class TradeDataProvider {
     static var shared = TradeDataProvider()
     private init(){}
     
+    func addToFavourite(ticker: Ticker) {
+        try! realm.write {
+            ticker.isFavourite = !ticker.isFavourite
+        }
+    }
+    
+    func search(with text: String) -> [Ticker] {
+        return Array(realm.objects(Ticker.self)
+                        .filter("symbol CONTAINS[cd] %@ OR tickerDescription CONTAINS[cd] %@", text, text)
+                        .sorted(byKeyPath: "symbol", ascending: true))
+    }
+}
+
+// MARK: - symbols
+extension TradeDataProvider {
     func getSymbols(complition: @escaping () -> ()) {
         let params = ["exchange":"US",
-                      "mic":"XNGS"]
+//                      "mic":"XNGS"
+                      "mic":"XASE"
+        ]
         HTTPManager(endPoint: "/stock/symbol", params: params) { [weak self] data, status in
             self?.saveSymbols(data)
             complition()
@@ -43,34 +60,67 @@ class TradeDataProvider {
     func getSymbolsList() -> [String] {
         return realm.objects(Ticker.self).sorted(byKeyPath: "symbol", ascending: true).compactMap({ $0.symbol })
     }
-    
-    func addToFavourite(ticker: Ticker) {
-        try! realm.write {
-            ticker.isFavourite = !ticker.isFavourite
-        }
-    }
-    
+}
+
+// MARK: - data from websocket
+extension TradeDataProvider {
     func saveTradeStock(_ data: Data?) {
         if let json = data?.json as? [String:Any],
            let data = json ["data"] as? [[String:Any]] {
             data.forEach { dict in
-                try! realm.write {
-                    realm.add(TradeStock(dict), update: .modified)
+                if let symbol = dict["s"] as? String,
+                   let lastPrice = dict["p"] as? Double,
+                   let ticker = realm.objects(Ticker.self).filter("symbol == %@", symbol).first {
+                    try! realm.write {
+                        ticker.lastPrice = lastPrice
+                    }
                 }
             }
         }
     }
-    
-    func getTradeStock() -> [TradeStock] {
-        return Array(realm.objects(TradeStock.self))
+}
+
+// MARK: - quotes
+extension TradeDataProvider {
+    func getQuote(symbol: String, complition: @escaping () -> ()) {
+        let params = ["symbol": symbol]
+        HTTPManager(endPoint: "/quote", params: params) { [weak self] data, status in
+            self?.saveQuote(symbol, data)
+            complition()
+        }
     }
     
-    func search(with text: String) -> [Ticker] {
-        return Array(realm.objects(Ticker.self)
-                        .filter("symbol CONTAINS[cd] %@ OR tickerDescription CONTAINS[cd] %@", text, text)
-                        .sorted(byKeyPath: "symbol", ascending: true))
+    func getQuotes(complition: @escaping () -> ()) {
+        for (index, element) in getSymbols().prefix(50).enumerated() {
+            let params = ["symbol": element.symbol]
+            HTTPManager(endPoint: "/quote", params: params) { [weak self] data, status in
+                self?.saveQuote(element.symbol, data)
+                if index == 49 { complition() }
+            }
+        }
     }
     
+    private func saveQuote(_ symbol: String, _ data: Data?) {
+        if let lastPrice = (data?.json as? [String:Any])?["c"] as? Double,
+           let previosLastPrice = (data?.json as? [String:Any])?["pc"] as? Double,
+            let ticker = realm.objects(Ticker.self).filter("symbol == %@", symbol).first {
+            try! realm.write {
+                ticker.lastPrice = lastPrice
+                ticker.difPrice = (lastPrice - previosLastPrice).rounded(toPlaces: 2)
+            }
+        }
+    }
+}
+
+extension Double {
+    func rounded(toPlaces places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
+
+// MARK: - candles
+extension TradeDataProvider {
     func getCandles(for symbol: String, periodName: String? = "D", complition: @escaping (_ data: [Double]?) -> ()) {
         var resolution = "5"
         var from = Int()

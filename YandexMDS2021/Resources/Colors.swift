@@ -12,6 +12,14 @@ extension UIColor {
         return UIColor(named: "grayColor")!
     }
     
+    class var greenColor: UIColor {
+        return UIColor(named: "greenColor")!
+    }
+    
+    class var redColor: UIColor {
+        return UIColor(named: "redColor")!
+    }
+    
     class var textColor: UIColor {
         return UIColor(named: "textColor")!
     }

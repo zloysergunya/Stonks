@@ -18,6 +18,8 @@ class Ticker: Object, Decodable {
     @objc dynamic var tickerDescription: String?
     @objc dynamic var displaySymbol: String?
     @objc dynamic var isFavourite = false
+    @objc dynamic var lastPrice = Double()
+    @objc dynamic var difPrice = Double()
     
     enum CodingKeys: String, CodingKey {
         case currency

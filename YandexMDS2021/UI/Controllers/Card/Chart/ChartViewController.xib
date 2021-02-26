@@ -19,6 +19,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChartViewController" customModule="YandexMDS2021" customModuleProvider="target">
             <connections>
                 <outlet property="chartView" destination="Xpx-no-843" id="1s8-lh-PWe"/>
+                <outlet property="difPriceLabel" destination="yd1-Mt-es5" id="sIz-cL-W2P"/>
+                <outlet property="lastPriceLabel" destination="DCb-uv-nk6" id="GKR-Dc-dWF"/>
                 <outlet property="periodControl" destination="LIW-dP-A6B" id="Mv6-0L-f3x"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -72,16 +74,16 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Vb-VL-hOH">
-                    <rect key="frame" x="144.33333333333334" y="64" width="101.33333333333334" height="54.666666666666657"/>
+                    <rect key="frame" x="170" y="64" width="50" height="108"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$132.04" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCb-uv-nk6">
-                            <rect key="frame" x="0.0" y="0.0" width="101.33333333333333" height="32.666666666666664"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCb-uv-nk6">
+                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="28"/>
                             <color key="textColor" name="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+$0.12 (1,15%)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yd1-Mt-es5">
-                            <rect key="frame" x="9.6666666666666572" y="40.666666666666671" width="82.333333333333329" height="14"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yd1-Mt-es5">
+                            <rect key="frame" x="0.0" y="58" width="50" height="50"/>
                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                             <color key="textColor" name="greenColor"/>
                             <nil key="highlightedColor"/>

@@ -28,9 +28,14 @@ class ListViewController: UIViewController {
     private func setupUI() {
         addSearchbar()
         setupTableView(listTableView)
-        TradeDataProvider.shared.getSymbols() { [weak self] in
-            self?.updateUI()
-            self?.setupWebSocket()
+        if TradeDataProvider.shared.getSymbols().count == 0 {
+            TradeDataProvider.shared.getSymbols() { [weak self] in
+                self?.updateUI()
+                self?.updateQuotes()
+                self?.setupWebSocket()
+            }
+        } else {
+            updateQuotes()
         }
     }
     
@@ -45,9 +50,15 @@ class ListViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = true
     }
     
+    private func updateQuotes() {
+        TradeDataProvider.shared.getQuotes { [weak self] in
+            self?.tickers = TradeDataProvider.shared.getSymbols()
+            self?.listTableView.reloadData()
+        }
+    }
+    
     func updateUI() {
         tickers = TradeDataProvider.shared.getSymbols()
-//        tradeStocks = TradeDataProvider.shared.getTradeStock()
         listTableView.reloadData()
     }
     
@@ -95,7 +106,7 @@ extension ListViewController: WSManagerDelegate {
     func didReceive(_ manager: WSManager, receivedData data: Data?) {
         TradeDataProvider.shared.saveTradeStock(data)
         checkAvailabilityTrades(data: data)
-//        updateUI()
+        updateUI()
     }
     
     private func checkAvailabilityTrades(data: Data?) {
